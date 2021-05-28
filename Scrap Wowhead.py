@@ -6,13 +6,10 @@ import re
 import pandas as pd
 
 # -----FUNCIONES----- #
-
-
 def reversa(a):
     a.reverse()
     del a[20:]
     a.reverse()
-
 
 # -----URL, STATUS_CODE, SOUP----- #
 url = "https://wowhead.com"
@@ -57,7 +54,6 @@ for i in range(len(array_links)):
 # print(len(array_links))
 
 # -----CREACIÓN DE DATAFRAMES Y CSV----- #
-datos = pd.DataFrame(
-    {"Posts:": array_nombres, "Descripción:": array_desc, "Links:": array_links})
+datos = pd.DataFrame({"Posts:": array_nombres, "Descripción:": array_desc, "Links:": array_links})
 datos.index += 1
 datos.to_csv("wowhead.csv")
