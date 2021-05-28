@@ -5,6 +5,15 @@ from bs4 import BeautifulSoup as bs
 import re
 import pandas as pd
 
+# -----FUNCIONES----- #
+
+
+def reversa(a):
+    a.reverse()
+    del a[20:]
+    a.reverse()
+
+
 # -----URL, STATUS_CODE, SOUP----- #
 url = "https://wowhead.com"
 pagina = urllib.request.urlopen(url)
@@ -18,9 +27,7 @@ array_nombres = []
 for nombre in nombres:
     nombre = nombre.text
     array_nombres.append(nombre)
-array_nombres.reverse()
-del array_nombres[20:]
-array_nombres.reverse()
+reversa(array_nombres)
 # print(array_nombres)
 # print(len(array_nombres))
 
@@ -31,9 +38,7 @@ for desc in descripciones:
     desc = desc.text
     desc = desc.replace("\n", "")
     array_desc.append(desc)
-array_desc.reverse()
-del array_desc[20:]
-array_desc.reverse()
+reversa(array_desc)
 # print(array_desc)
 # print(len(array_desc))
 
@@ -44,9 +49,7 @@ array_links = []
 for link in links:
     link = link.get("href")
     array_links.append(link)
-array_links.reverse()
-del array_links[20:]
-array_links.reverse()
+reversa(array_links)
 for i in range(len(array_links)):
     if array_links[i][0:8] != "https://":
         array_links[i] = url + array_links[i]
