@@ -1,21 +1,20 @@
-# -----IMPORTS-----
+# -----IMPORTS----- #
 import urllib.request
 import requests
 from bs4 import BeautifulSoup as bs
 import re
 import pandas as pd
 
-# -----URL Y STATUS_CODE-----
+# -----URL, STATUS_CODE, SOUP----- #
 url = "https://www.wowhead.com/"
 pagina = urllib.request.urlopen(url)
+soup = bs(pagina, "html.parser")
 # r = requests.get(url)
 # print(r.status_code)
 
-# -----DATOS A SCRAPEAR-----
-soup = bs(pagina, "html.parser")
+# -----ITERACIÓN DE TÍTULOS----- #
 nombres = soup.body.findAll("h1")
 array_nombres = []
-# -----ITERACION DE DATOS (TITULOS)-----
 for nombre in nombres:
     nombre = nombre.text
     array_nombres.append(nombre)
@@ -25,12 +24,28 @@ array_nombres.reverse()
 # print(array_nombres)
 # print(len(array_nombres))
 
-# -----ITERACION DE DATOS (LINKS)-----
-# links = soup.find_all("a")
-# for link in links:
-#     print(link.get("href"))
+# -----ITERACIÓN DE DESCRIPCIONES----- #
+descripciones = soup.body.findAll("div", attrs={"class": "news-post-content"})
+array_desc = []
+for desc in descripciones:
+    desc = desc.text
+    desc = desc.replace("\n", "")
+    array_desc.append(desc)
+array_desc.reverse()
+del array_desc[20:]
+array_desc.reverse()
+# print(array_desc)
+# print(len(array_desc))
 
-# -----CREACION DE DATAFRAMES-----
-datos = pd.DataFrame({"Posts:": array_nombres})
+
+# -----ITERACIÓN DE DATOS (LINKS)----- #
+# Falta
+# trabajo
+# por
+# hacer
+# acá
+
+# -----CREACIÓN DE DATAFRAMES Y CSV-----
+datos = pd.DataFrame({"Posts:": array_nombres, "Descripción:": array_desc})
 datos.index += 1
 datos.to_csv("wowhead.csv")
