@@ -6,7 +6,7 @@ import re
 import pandas as pd
 
 # -----URL, STATUS_CODE, SOUP----- #
-url = "https://www.wowhead.com/"
+url = "https://wowhead.com"
 pagina = urllib.request.urlopen(url)
 soup = bs(pagina, "html.parser")
 # r = requests.get(url)
@@ -39,13 +39,22 @@ array_desc.reverse()
 
 
 # -----ITERACIÓN DE DATOS (LINKS)----- #
-# Falta
-# trabajo
-# por
-# hacer
-# acá
+links = soup.body.findAll("a", attrs={"class": "news-post-teaser-image"})
+array_links = []
+for link in links:
+    link = link.get("href")
+    array_links.append(link)
+array_links.reverse()
+del array_links[20:]
+array_links.reverse()
+for i in range(len(array_links)):
+    if array_links[i][0:8] != "https://":
+        array_links[i] = url + array_links[i]
+# print(array_links)
+# print(len(array_links))
 
-# -----CREACIÓN DE DATAFRAMES Y CSV-----
-datos = pd.DataFrame({"Posts:": array_nombres, "Descripción:": array_desc})
+# -----CREACIÓN DE DATAFRAMES Y CSV----- #
+datos = pd.DataFrame(
+    {"Posts:": array_nombres, "Descripción:": array_desc, "Links:": array_links})
 datos.index += 1
 datos.to_csv("wowhead.csv")
