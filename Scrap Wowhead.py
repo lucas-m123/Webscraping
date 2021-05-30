@@ -39,7 +39,6 @@ reversa(array_desc)
 # print(array_desc)
 # print(len(array_desc))
 
-
 # -----ITERACIÓN DE DATOS (LINKS)----- #
 links = soup.body.findAll("a", attrs={"class": "news-post-teaser-image"})
 array_links = []
