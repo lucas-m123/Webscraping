@@ -48,8 +48,8 @@ busqueda.send_keys(Keys.ENTER)
 # Probablemente tengas que repetir el scroll de la página varias veces más, dado que Instagram va cargando las
 # imágenes conforme nosotros vamos haciendo scroll en la página
 def scroll():
-    time.sleep(3)
-    nav.execute_script("window.scrollTo(0,8550);")
+    time.sleep(2)
+    nav.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
 # -----DESCARGAR LAS IMÁGENES----- #
 # Usa el nombre del término de búsqueda para nombrar la carpeta de origen y las fotos descargadas
@@ -68,7 +68,11 @@ def guardar_imagenes():
         wget.download(j, guardar)
         n += 1
 
-for k in range(3):
+for k in range(1):
     scroll()
-    scroll()
+    scroll() # 2
+    scroll() # 6
+    scroll() # 10
+    scroll() # 14
+    nav.find_element_by_tag_name("body").send_keys(Keys.CONTROL + Keys.HOME)
     guardar_imagenes()
